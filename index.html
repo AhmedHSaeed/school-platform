@@ -102,8 +102,8 @@
 
 <script>
     // ==============================================
-    // ⚠️ ضع هنا ID جدول جوجل شيت الخاص بك (استخرجته سابقاً)
-    const SHEET_ID = '180ooJ1sFA21lV7-RSpb5C5abtQulbPo2m9Z7My_-QAY'; 
+    // ✅ ID جدول جوجل شيت الجديد (تم وضعه مسبقاً)
+    const SHEET_ID = '180ooJ1sFA21lV7-RSpb5C5abtQulbPo2m9Z7My_-QAY';
     // ==============================================
 
     let allDailyRows = [];
@@ -111,11 +111,13 @@
     let allExtraRows = [];
     let currentWeekFilter = '';
 
+    // ✅ الدالة المحسّنة والنهائية لقراءة البيانات
     async function fetchSheet(sheetName) {
         const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
         const response = await fetch(url);
         const text = await response.text();
-        const json = JSON.parse(text.substring(47).slice(0, -2));
+        // الطريقة الصحيحة التي تعمل دائماً
+        const json = JSON.parse(text.replace(/^[^{]*/, ''));
         return json.table.rows;
     }
 
